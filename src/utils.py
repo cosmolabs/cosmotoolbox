@@ -13,7 +13,6 @@ import base64
 import jwt
 import re
 from jsonschema.protocols import Validator
-from jsonschema.exceptions import SchemaError
 import tomllib
 
 

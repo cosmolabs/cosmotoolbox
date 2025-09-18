@@ -1,0 +1,150 @@
+// Copyright (C) 2022 - 2023 Alessandro Iepure
+// 
+// SPDX-License-Identifier: GPL-3.0-or-later
+using Gtk 4.0;
+using Adw 1;
+
+template $SshKeyGeneratorView: Adw.Bin {
+  Adw.ToastOverlay _toast {
+    child: ScrolledWindow {
+      child: Adw.Clamp {
+        vexpand: true;
+        maximum-size: 1200;
+        tightening-threshold: 600;
+
+        child: Box {
+          orientation: vertical;
+          // Title
+          $UtilityTitle _title {
+            title: _("SSH Key Generator");
+            description: _("An Effortless SSH Key Creation");
+            tool-name: "sshkey-generator";
+          }
+
+          Separator {
+            margin-top: 10;
+            margin-bottom: 10;
+          }
+
+          // Options
+          Adw.PreferencesGroup {
+            margin-bottom: 10;
+            title: _("Fill the information below");
+            description: _("Empty passphrases yield unencrypted key pairs. Updating any field clears keys.");
+            
+            Adw.ComboRow _keytype_dropdown {
+              title: _("Key Type");
+              subtitle: _("Choose the key type");
+              icon-name: "list-large";
+
+              model: StringList {
+                strings [
+                  _("rsa"),
+                  _("ed25519"),
+                  _("ecdsa")
+                ]
+              };
+              selected: 0;
+            }
+            Adw.ComboRow _keysize_dropdown {
+              title: _("Key Size");
+              subtitle: _("Choose the key size (bits)");
+              icon-name: "list-large";
+
+              model: StringList {
+                strings [
+                  _("1024"),
+                  _("2048"),
+                  _("3072"),
+                  _("4096")
+                ]
+              };
+
+              selected: 3;
+            }
+            Adw.EntryRow _comment_entry {
+              title: _("Comment");
+            }
+            Adw.PasswordEntryRow _password_entry {
+              title: _("Passphrase");
+            }
+            Adw.SwitchRow _save_ssh_keys_switch {
+              title: _("Do you need to save SSH key pair?");
+              active: false;
+            }
+            Adw.ActionRow _key_save_row {
+              title: _("Keys Save Location *");
+              subtitle: _("Private and public key pair storage location");
+
+              styles [
+                "fake-action-row-bottom"
+              ]
+
+              Box {
+                orientation: horizontal;
+
+                Label _key_save_path {
+                  margin-end: 10;
+                }
+
+                Button _key_save_btn {
+                  valign: center;
+
+                  child: Adw.ButtonContent {
+                    icon-name: "document-open";
+                    label: _("Choose");
+                  };
+                }
+              }
+            }
+          }
+          Box {
+            orientation: horizontal;
+            homogeneous: true;
+            spacing: 5;
+            Button _generate_sshkeys_btn {
+              valign: center;
+              styles [
+                "accent",
+                "pill"
+              ]
+              child: Adw.ButtonContent {
+                label: _("Generate SSH Keys");
+                icon-name: "edit";
+              };
+            }
+          }
+
+          Separator {
+            margin-top: 5;
+            margin-bottom: 5;
+          }
+          Box {
+            orientation: horizontal;
+            homogeneous: true;
+            spacing: 10;
+            margin-bottom: 10;
+
+            $TextArea _private_key_area {
+              name: _("Private Key");
+              show-copy-btn: true;
+              text-editable: false;
+              allow-drag-and-drop: false;
+              margin-bottom: 10;
+              text-wrap-mode: char;
+            }
+
+            $TextArea _public_key_area {
+              name: _("Public Key");
+              show-copy-btn: true;
+              text-editable: false;
+              allow-drag-and-drop: false;
+              margin-bottom: 10;
+              text-wrap-mode: char;
+            }
+          }
+        };
+      };
+    };
+  }
+}

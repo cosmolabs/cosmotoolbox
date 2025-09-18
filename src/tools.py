@@ -370,7 +370,18 @@ TOOLS_METADATA = {
             C_("search keyword", "random"),
         ]
     },
-    "random-generator": {
+     "sshkey-generator": {
+        "title": "SSH Keys",
+        "category": _("Generators"),
+        "icon-name": "key-symbolic",
+        "tooltip": _("Effortless SSH Key Creation"),
+        "keywords": [
+            "SSH",
+            C_("search keyword", "SSH"),
+            C_("search keyword", "keys"),
+        ]
+    },
+   "random-generator": {
         "title": _("Random"),
         "category": _("Generators"),
         "icon-name": "dice3-symbolic",
@@ -678,6 +689,9 @@ def get_tools_for_ui() -> dict:
             case "uuid-generator":
                 from .views.uuid_generator import UuidGeneratorView
                 tools_with_ui[tool_id]["child"] = UuidGeneratorView()
+            case "sshkey-generator":
+                from .views.sshkey_generator import SshKeyGeneratorView 
+                tools_with_ui[tool_id]["child"] = SshKeyGeneratorView()
             case "random-generator":
                 from .views.random_generator import RandomGeneratorView
                 tools_with_ui[tool_id]["child"] = RandomGeneratorView()

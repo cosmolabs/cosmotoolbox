@@ -17,6 +17,7 @@ sources = [
   'hash_generator.py',
   'lorem_generator.py',
   'uuid_generator.py',
+  'sshkey_generator.py',
   'text_inspector.py',
   'regex_tester.py',
   'text_diff.py',
